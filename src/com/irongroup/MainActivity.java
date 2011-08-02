@@ -150,7 +150,7 @@ public class MainActivity extends Activity {
 				} catch (Exception e) {
 					m=200;
 				}
-				Log.i(TAG, "month_total-"+month_total);
+				//Log.i(TAG, "month_total-"+month_total);
 				editor.putInt("month_total",m );
 				editor.commit();
 				handler.post(new Runnable() {
@@ -160,6 +160,21 @@ public class MainActivity extends Activity {
 				});
 			}
 		}, "set_calltime_total");
+		//设置过滤的免费电话
+		webView.addJavascriptInterface(new Object() {
+			public void setFreePhone(String phone_number) {
+				Editor editor=sp.edit();
+				//Log.i(TAG, "phone_number-"+phone_number.trim());
+				editor.putString("free_phone_number",phone_number.trim());
+				editor.commit();
+				handler.post(new Runnable() {
+					public void run() {
+						webView.loadUrl("file:///android_asset/total.html");
+					}
+				});
+			}
+		}, "set_free_phone");
+		
 	}
 
 	public String getCallTimeJson(String where) {
@@ -292,8 +307,15 @@ public class MainActivity extends Activity {
 	public String getCallTimeTotal(){
 		// 获取所设置的月套餐包含通话时长
 		int timesPerMonth = sp.getInt("month_total", 200);
+		// 获取需要过滤的免费电话
+		String free_phone_number=sp.getString("free_phone_number", "11%,10%,12%");
+		String[] fpn=free_phone_number.split(",");
+		
 		// 获取本月已拨通话时长
-		String where = "type=2 and datetime(substr(date,1,10),'unixepoch','localtime')>=datetime('now','start of month')";
+		String where = "type=2 and datetime(substr(date,1,10),'unixepoch','localtime')>=datetime('now','start of month') ";
+		for (int i = 0; i < fpn.length; i++) {
+			where=where +(" and number not like '"+fpn[i]+"' ");
+		}
 		int outOfmonth = this.getCallTimeByWhere(where);
 		// 获取本周已拨通话时长
 		GregorianCalendar calendar = new GregorianCalendar();
@@ -331,6 +353,7 @@ public class MainActivity extends Activity {
 			json.put("outOfmonth",outOfmonth);
 			json.put("persent",persent);
 			json.put("timesPerMonth",timesPerMonth);
+			json.put("freephone",free_phone_number);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
