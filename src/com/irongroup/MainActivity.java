@@ -32,6 +32,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 
 public class MainActivity extends Activity {
 	private static String TAG = MainActivity.class.getName();
@@ -55,7 +56,7 @@ public class MainActivity extends Activity {
 		//webSettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
 		webSettings.setJavaScriptEnabled(true);
 		webView.loadUrl("file:///android_asset/total.html");
-
+		
 		webView.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {

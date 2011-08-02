@@ -15,6 +15,6 @@
 	<instrumentation android:name="android.test.InstrumentationTestRunner"
 		android:targetPackage="com.irongroup" android:label="Tests for My App" />
 	<uses-permission android:name="android.permission.CALL_PHONE" />
-	<uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
-	
+	<uses-permission android:name="android.permission.READ_CONTACTS"/>
+
 </manifest>
