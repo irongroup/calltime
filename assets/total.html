@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html class="ui-mobile landscape min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta content="width=device-width" name="viewport">
+<title>通话记录</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/jquery.mobile-1.0a4.1.min.css">
+<style type="text/css">
+</style>
+<script type="text/javascript">
+window.onload = function() {
+	window.calltime_total.getTotal(); 
+	//var data={"timesPerMonth":"100","outOfmonth":"150","inOfMonth":"90"};
+	//callback(data);
+ };
+function callback(data) {
+	 if(data != null ){
+		 document.getElementById("timesPerMonth").innerHTML=data.timesPerMonth;
+		 document.getElementById("outOfmonth").innerHTML=data.outOfmonth;
+		 document.getElementById("inOfMonth").innerHTML=data.inOfMonth;
+		 var remain=data.timesPerMonth-data.outOfmonth;
+		 if(remain>=0){
+		 	document.getElementById("remain").innerHTML=remain;
+		 }else{
+			document.getElementById("remain").innerHTML=data.timesPerMonth;
+		 }
+		 //$("#timesPerMonth").text(data.timesPerMonth);
+		 //$("#outOfmonth").text(data.outOfmonth);
+		 //$("#inOfMonth").text(data.inOfMonth);
+	}
+}
+function to(url){
+	window.location.href=url;
+}
+function setMonthTotal(){
+	window.set_calltime_total.setTotal(document.getElementById("month_total").value);
+}
+function setting(){
+	document.getElementById("setting").className="ui-dialog ui-page ui-body-a ui-page-active";
+}
+function closesetting(){
+	document.getElementById("setting").className="ui-dialog ui-page ui-body-a";
+}
+</script>
+</head>
+<body class="ui-mobile-viewport">
+<!-- 总计页面 -->
+<div class="ui-page ui-body-d ui-page-active" data-url="total" data-role="page" id="total" data-theme="d">
+	<div role="banner" class="ui-bar-d ui-header" data-role="header" data-nobackbtn="true">
+            <div role="navigation" class="ui-navbar" data-role="navbar">
+				<ul class="ui-grid-c">
+					<li class="ui-block-a"><a data-theme="d" href="#" data-transition="pop" data-iconpos="top" data-icon="star" class="ui-btn ui-btn-icon-top ui-btn-up-d ui-btn-active"><span class="ui-btn-inner"><span class="ui-btn-text">总计</span><span class="ui-icon ui-icon-star"></span></span></a></li>
+					<li class="ui-block-b"><a class="ui-btn ui-btn-up-d ui-btn-icon-top" data-theme="d" href="#" onclick="javascript:to('outgoing.html')" data-transition="pop" data-iconpos="top" data-icon="plus"><span class="ui-btn-inner"><span class="ui-btn-text">拨出</span><span class="ui-icon ui-icon-plus"></span></span></a></li>
+					<li class="ui-block-c"><a class="ui-btn ui-btn-up-d ui-btn-icon-top" data-theme="d" href="#" onclick="javascript:to('incoming.html')" data-transition="pop" data-iconpos="top" data-icon="minus"><span class="ui-btn-inner"><span class="ui-btn-text">接听</span><span class="ui-icon ui-icon-minus"></span></span></a></li>
+					<li class="ui-block-d"><a class="ui-btn ui-btn-up-d ui-btn-icon-top" data-theme="d" href="#" onclick="javascript:to('missing.html')" data-transition="pop" data-iconpos="top" data-icon="delete"><span class="ui-btn-inner"><span class="ui-btn-text">未接</span><span class="ui-icon ui-icon-delete"></span></span></a></li>
+				</ul>
+			</div>
+        </div>
+        <div role="main" class="ui-content" data-role="content" id="contentList">
+        	<!-- Basic List views -->
+		<ul class="ui-listview" data-role="listview" data-theme="d" id="contactlist">
+			<li class="ui-li ui-li-divider ui-btn ui-bar-b ui-btn-up-undefined" role="heading" data-role="list-divider">当月套餐分钟数</li>
+			<li class="ui-btn ui-btn-icon-right ui-li ui-btn-up-d" data-theme="d" data-icon="refresh"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit" href="javascript:setting();" data-rel="dialog"><p class="ui-li-desc" id="timesPerMonth"></p></a></div><span class="ui-icon ui-icon-refresh"></span></div></li>
+			<li class="ui-li ui-li-divider ui-btn ui-bar-b ui-btn-up-undefined" role="heading" data-role="list-divider">当月已拨打电话分钟数</li>
+			<li class="ui-li ui-li-static ui-body-d"><p class="ui-li-desc" id="outOfmonth"></p>
+			</li>
+			<li class="ui-li ui-li-divider ui-btn ui-bar-b ui-btn-up-undefined" role="heading" data-role="list-divider">还剩套餐分钟数</li>
+			<li class="ui-li ui-li-static ui-body-e"><p class="ui-li-desc" id="remain"></p>
+			</li>
+			<li class="ui-li ui-li-divider ui-btn ui-bar-b ui-btn-up-undefined" role="heading" data-role="list-divider">当月已接听电话分钟数</li>
+			<li class="ui-li ui-li-static ui-body-d"><p class="ui-li-desc" id="inOfMonth"></p></li>
+		</ul>
+        </div>
+</div>
+<div id="setting" data-role="dialog" data-url="setting" class="ui-dialog ui-page ui-body-a" role="dialog">
+	<div data-role="header" class="ui-corner-top ui-overlay-shadow ui-bar-a ui-header" role="banner">
+	<a data-iconpos="notext" data-rel="back" data-icon="delete" href="javascript:closesetting();" class="ui-btn-left ui-btn ui-btn-up-a ui-btn-icon-notext ui-btn-corner-all ui-shadow" title="Close" data-theme="a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Close</span><span class="ui-icon ui-icon-delete ui-icon-shadow"></span></span></a>
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">套餐设置</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" class="ui-content ui-body-c ui-corner-bottom ui-overlay-shadow" role="main">	
+		<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+		    <label for="month_total" class="ui-input-text">套餐国内语音拨打分钟数:</label>
+		    <input type="text" value="" id="month_total" name="month_total" class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-c">
+		    <a onclick="javascript:setMonthTotal();" data-role="button" href="#" data-theme="c" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">设置</span></span></a> 
+		</div>
+	</div><!-- /content -->
+</div>
+
+<div style="top: 217px;" class="ui-loader ui-body-a ui-corner-all"><span class="ui-icon ui-icon-loading spin"></span><h1>loading</h1></div></body>
+</html>

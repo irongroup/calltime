@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html class="ui-mobile landscape min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+<title>通话记录</title>
+<meta charset="utf-8">
+<link href="css/jquery.mobile-1.0a4.1.min.css" rel="stylesheet">
+<style type="text/css">
+</style>
+<script type="text/javascript">
+
+window.onload = function() {
+	var URLParams = new Array();
+	var aParams = document.location.search.substr(1).split('&amp;');
+	for (i=0; i <aParams.length ; i++){
+	   var aParam = aParams[i].split('=');
+	   URLParams[aParam[0]] = aParam[1];
+	}
+	//取得传过来的name参数
+	var phonenumber=URLParams["phonenumber"];
+	document.getElementById("phone").innerHTML=phonenumber;
+	window.calltime_outlist.getCallList(phonenumber);
+	//var data={"outgoings":[{"calltime":"2011-06-18 19:41:49","numbertype":"7","number":"07955711153","duration":"4分15秒","type":"2","alias":"家     "},{"calltime":"2011-06-10 19:49:09","numbertype":"7","number":"07955711153","duration":"6分28秒","type":"2","alias":"家     "},{"calltime":"2011-06-05 18:36:19","numbertype":"7","number":"07955711153","duration":"7分35秒","type":"2","alias":"家     "},{"calltime":"2011-06-04 19:00:51","numbertype":"7","number":"07955711153","duration":"2分9秒","type":"2","alias":"家     "},{"calltime":"2011-06-02 19:42:10","numbertype":"7","number":"07955711153","duration":"6分45秒","type":"2","alias":"家     "},{"calltime":"2011-05-29 19:40:21","numbertype":"7","number":"07955711153","duration":"4分25秒","type":"2","alias":"家     "},{"calltime":"2011-05-21 19:53:16","numbertype":"7","number":"07955711153","duration":"5分35秒","type":"2","alias":"家     "},{"calltime":"2011-05-17 09:06:37","numbertype":"7","number":"07955711153","duration":"6分58秒","type":"2","alias":"家     "},{"calltime":"2011-05-11 20:25:14","numbertype":"7","number":"07955711153","duration":"10分39秒","type":"2","alias":"家     "}]};
+	//callback2(data);
+ };
+
+function callback2(data) {
+	if(data != null && data.outgoings != null){
+		var ullist = document.getElementById("contactlist");
+		var tmpKeyFragment="";
+	    for(i = 0; i < data.outgoings.length; i++){
+	        tmpKeyFragment =tmpKeyFragment+ '<li data-inset="true" class="ui-li ui-li-static ui-body-c"><h3 class="ui-li-heading">'+data.outgoings[i].alias+' </h3><p class="ui-li-desc"><strong>'+data.outgoings[i].number+'</strong></p><p class="ui-li-desc">'+data.outgoings[i].calltime+'</p><p class="ui-li-count ui-btn-up-c ui-btn-corner-all ui-li-desc"><strong>'+data.outgoings[i].duration+'</strong></p></li>';
+		}
+	    ullist.innerHTML=tmpKeyFragment ;
+	}
+}
+function to(url){
+	window.location.href=url;
+}
+</script>
+</head>
+
+<body class="ui-mobile-viewport">
+<!-- 拨出页面 -->
+<div data-theme="d" id="outgoing" data-role="page" data-url="outgoing" class="ui-page ui-body-d ui-page-active">
+	<div id="hdrList" data-role="header" class="ui-bar-d ui-header" role="banner">
+    	<a data-direction="reverse" data-icon="arrow-l" onclick="javascript:to('outgoing.html')" href="#" data-theme="b" class="ui-btn-left ui-btn ui-btn-up-b ui-btn-icon-left ui-btn-corner-all ui-shadow"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">后退</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span></span></a>
+			<h1 id="phone" class="ui-title" tabindex="0" role="heading" aria-level="1"></h1>
+    </div>
+	<div id="contentList" data-role="content" class="ui-content" role="main">
+    	<!-- Basic List views -->
+		<ul id="contactlist" data-role="listview" class="ui-listview">
+		</ul>
+	</div>
+</div>
+
+
+
+<div class="ui-loader ui-body-a ui-corner-all" style="top: 217px;">
+<span class="ui-icon ui-icon-loading spin"></span><h1>loading</h1>
+</div>
+</body>
+</html>

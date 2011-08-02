@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">CallTime</string>
+    <string name="about">ltq1213@gmail.com</string>
+    <string name="about_cn">About</string>
+    <string name="setting_cn">setting</string>
+    <string name="exit_cn">exit</string>
+    <string name="about_title">About Author</string>
+    <string name="about_button">Confirm</string>
+</resources>

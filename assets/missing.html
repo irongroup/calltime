@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>通话记录</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="css/jquery.mobile-1.0a4.1.min.css" />
+<style type="text/css">
+</style>
+<script type="text/javascript">
+window.onload = function() {
+	//var data={"outgoings":[{"calltime":"2011-06-18 19:41:49","number":"07955711153","duration":"54分49秒","count":"9","alias":"家     "},{"calltime":"2011-06-06 14:53:40","number":"18258187718","duration":"11分20秒","count":"8","alias":"张芝燕"},{"calltime":"2011-06-18 23:25:17","number":"10000","duration":"21分23秒","count":"7","alias":"10000"},{"calltime":"2011-06-10 15:22:27","number":"15372593032","duration":"11分25秒","count":"4","alias":"拜文娟"},{"calltime":"2011-06-10 15:29:26","number":"15800631961","duration":"1分54秒","count":"4","alias":"叶仁斌"},{"calltime":"2011-06-05 13:13:49","number":"13641783977","duration":"2分26秒","count":"3","alias":"邹高"},{"calltime":"2011-06-08 15:41:35","number":"13656682467","duration":"1分37秒","count":"3","alias":"王蕊"},{"calltime":"2011-06-02 17:48:12","number":"13816175067","duration":"2分18秒","count":"3","alias":"王刘亮"},{"calltime":"2011-06-05 16:38:31","number":"88387905","duration":"24秒","count":"3","alias":"88387905"},{"calltime":"2011-06-03 18:50:14","number":"13489388706","duration":"31分45秒","count":"2","alias":"梁老爸"},{"calltime":"2011-06-06 11:11:03","number":"13606704209","duration":"59秒","count":"2","alias":"梁玉琼"},{"calltime":"2011-05-19 09:40:18","number":"15869112930","duration":"1分26秒","count":"2","alias":"赵艳辉"},{"calltime":"2011-05-17 07:34:16","number":"+8615869112930","duration":"21秒","count":"1","alias":"赵艳辉"},{"calltime":"2011-06-03 09:22:19","number":"+8615889702075","duration":"1分5秒","count":"1","alias":"梁琼"},{"calltime":"2011-06-17 20:53:40","number":"+8615905817062","duration":"1分47秒","count":"1","alias":"蕫磊"},{"calltime":"2011-05-31 14:33:57","number":"02885128866","duration":"1分51秒","count":"1","alias":"02885128866"},{"calltime":"2011-06-17 08:05:48","number":"10010","duration":"2秒","count":"1","alias":"10010"},{"calltime":"2011-05-17 15:40:17","number":"13501708590","duration":"30秒","count":"1","alias":"孙洁"},{"calltime":"2011-06-10 23:57:15","number":"13588773087","duration":"14分23秒","count":"1","alias":"13588773087"},{"calltime":"2011-05-31 09:45:04","number":"15157101402","duration":"10秒","count":"1","alias":"邹高"},{"calltime":"2011-06-20 08:31:44","number":"15314691524","duration":"1分18秒","count":"1","alias":"15314691524"},{"calltime":"2011-02-03 14:32:49","number":"18621872880","duration":"51秒","count":"1","alias":"18621872880"},{"calltime":"2011-06-12 10:39:30","number":"18645055718","duration":"55秒","count":"1","alias":"18645055718"},{"calltime":"2011-05-23 19:30:17","number":"81578190","duration":"1分13秒","count":"1","alias":"81578190"}]};
+	//callback(data);
+	window.calltime_miss.getMissing();
+};
+function callback(data) {
+	var ullist = document.getElementById("contactlist");
+	if(data != null && data.outgoings != null){
+		var tmpKeyFragment="";
+		for(i = 0; i < data.outgoings.length; i++){
+			tmpKeyFragment =tmpKeyFragment+ '<li data-theme="d" class="ui-btn ui-btn-up-d ui-btn-icon-right ui-li"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="javascript:to(\'missinglist.html?phonenumber='+data.outgoings[i].number+'\')" class="call_list ui-link-inherit"><h3 class="ui-li-heading">'+data.outgoings[i].alias+"  +"+data.outgoings[i].count+'</h3><p class="ui-li-desc"><strong id="call_number">'+data.outgoings[i].number+'</strong></p><p class="ui-li-desc">'+data.outgoings[i].calltime+'</p><p class="ui-li-count ui-btn-up-c ui-btn-corner-all ui-li-desc"><strong>'+data.outgoings[i].duration+'</strong></p></a></div><span class="ui-icon ui-icon-arrow-r"></span></div></li>';
+		}
+		ullist.innerHTML=tmpKeyFragment;
+	}
+}
+function to(url){
+	window.location.href=url;
+}
+</script>
+</head>
+<body class="ui-mobile ui-mobile body">
+<!-- 未接页面 -->
+<div data-role="page" id="incoming" data-theme="d" data-url="outgoing" class="ui-page ui-body-d ui-page-active">
+	<div data-role="header" data-nobackbtn="true" id="hdrList" class="ui-bar-d ui-header" role="banner">
+    	<div data-role="navbar" class="ui-navbar" role="navigation">
+			<ul class="ui-grid-c">
+				<li class="ui-block-a"><a href="#" onclick="javascript:to('total.html')" data-transition="pop" data-iconpos="top" data-icon="star" data-theme="d" class="ui-btn ui-btn-icon-top ui-btn-hover-d"><span class="ui-btn-inner"><span class="ui-btn-text">总计</span><span class="ui-icon ui-icon-star"></span></span></a></li>
+				<li class="ui-block-b"><a href="#" onclick="javascript:to('outgoing.html')"data-transition="pop" data-iconpos="top" data-icon="plus" class="ui-btn ui-btn-up-d ui-btn-icon-top" data-theme="d"><span class="ui-btn-inner"><span class="ui-btn-text">拨出</span><span class="ui-icon ui-icon-plus"></span></span></a></li>
+				<li class="ui-block-c"><a href="#" onclick="javascript:to('incoming.html')" data-transition="pop" data-iconpos="top" data-icon="minus" data-theme="d" class="ui-btn ui-btn-up-d ui-btn-icon-top"><span class="ui-btn-inner"><span class="ui-btn-text">接听</span><span class="ui-icon ui-icon-minus"></span></span></a></li>
+				<li class="ui-block-d"><a href="#" data-transition="pop" data-iconpos="top" data-icon="delete" data-theme="d" class="ui-btn-active ui-btn ui-btn-up-d ui-btn-icon-top"><span class="ui-btn-inner"><span class="ui-btn-text">未接</span><span class="ui-icon ui-icon-delete"></span></span></a></li>
+			</ul>
+		</div>
+    </div>
+	<div data-role="content" id="contentList" class="ui-content" role="main">
+    	<!-- Basic List views -->
+		<form class="ui-listview-filter ui-bar-c" role="search">
+		<div class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c">
+		<input placeholder="Filter items..." data-type="search" class="ui-input-text ui-body-null">
+		<a href="#" class="ui-input-clear ui-btn ui-btn-up-c ui-btn-icon-notext ui-btn-corner-all ui-shadow ui-input-clear-hidden" title="clear text" data-theme="c">
+		<span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">clear text</span><span class="ui-icon ui-icon-delete ui-icon-shadow"></span></span></a></div></form>
+		<ul data-role="listview" data-filter="true" id="contactlist" class="ui-listview">
+		</ul>
+		
+	</div>
+</div>
+
+</body>
+</html>

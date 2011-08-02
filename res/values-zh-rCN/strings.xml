@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">通话时间统计</string>
+    <string name="about">ltq1213@gmail.com</string>
+    <string name="about_cn">关于</string>
+    <string name="setting_cn">设置</string>
+    <string name="exit_cn">退出</string>
+    <string name="about_title">关于作者</string>
+    <string name="about_button">确定</string>
+</resources>
